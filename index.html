@@ -20,6 +20,7 @@
       background: #f5f0e8;
       color: #24170f;
       line-height: 1.6;
+      padding-top: 104px;
     }
 
     header {
@@ -37,11 +38,18 @@
       justify-content: space-between;
       align-items: center;
       padding: 26px 8%;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.35);
       backdrop-filter: blur(8px);
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 20;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: transform 0.35s ease;
+    }
+
+    nav.hide-nav {
+      transform: translateY(-100%);
     }
 
     .logo {
@@ -110,7 +118,7 @@
 
     section {
       padding: 90px 8%;
-      scroll-margin-top: 100px;
+      scroll-margin-top: 130px;
     }
 
     .section-title {
@@ -386,7 +394,7 @@
   </style>
 </head>
 <body>
-  <header id="start">
+  <header id="start" style="margin-top: -104px;">
     <nav>
       <div class="logo">Zubler & Söhne GmbH</div>
       <ul class="nav-links">
@@ -534,5 +542,23 @@
   <footer>
     <p>© 2026 Zubler & Söhne GmbH</p>
   </footer>
+  <script>
+    let lastScrollY = window.scrollY;
+    const navbar = document.querySelector("nav");
+
+    window.addEventListener("scroll", function() {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 20) {
+        navbar.classList.remove("hide-nav");
+      } else if (currentScrollY > lastScrollY) {
+        navbar.classList.add("hide-nav");
+      } else {
+        navbar.classList.remove("hide-nav");
+      }
+
+      lastScrollY = currentScrollY;
+    });
+  </script>
 </body>
 </html>
